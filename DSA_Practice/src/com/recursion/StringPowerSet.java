@@ -1,6 +1,6 @@
 package com.recursion;
 
-public class AllSubstring {
+public class StringPowerSet {
 	
     // Recursive function to print all subsets of the input string
     public static void solve(String inp, String op) {
@@ -25,7 +25,7 @@ public class AllSubstring {
 
     public static void main(String[] args) {
         // Driver code to test the recursive function
-        String str = "ab";  // Input string for which we need to find all subsets
+        String str = "abc";  // Input string for which we need to find all subsets
         String op = "";     // Initial output is an empty string
         solve(str, op);     // Call the recursive function
     }
