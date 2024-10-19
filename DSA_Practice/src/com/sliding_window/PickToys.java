@@ -3,49 +3,50 @@ package com.sliding_window;
 import java.util.HashMap;
 
 public class PickToys {
-	
+    
+    // Method to find the maximum number of toys (represented as characters) that can be picked, 
+    // with the condition that only 2 types of toys can be picked at once.
     public static int totalToys(String s) {
-        int i = 0; // Left pointer (start of the sliding window)
-        int j = 0; // Right pointer (end of the sliding window)
-        int ans = 0; // Variable to store the maximum number of fruits we can collect
-        HashMap<Character, Integer> map = new HashMap<>(); // Map to track the frequency of each type of fruit in the current window
+        int i = 0; // Left pointer to define the start of the sliding window
+        int j = 0; // Right pointer to define the end of the sliding window
+        int ans = 0; // Variable to store the maximum length of valid window (maximum number of toys picked)
+        HashMap<Character, Integer> map = new HashMap<>(); // Map to track the frequency of each toy type in the current window
 
-        // Iterate through the array using the right pointer `j`
+        // Iterate through the string using the right pointer `j`
         while (j < s.length()) {
-            // Add the current fruit at position 'j' to the map, increasing its count
-        	Character c = s.charAt(j);
+            // Get the current character (toy) at position `j` and update its frequency in the map
+            Character c = s.charAt(j);
             map.put(c, map.getOrDefault(c, 0) + 1);
 
-            // If we have more than 2 different types of fruits, shrink the window from the left
+            // If the window contains more than 2 types of toys, shrink it from the left
             while (map.size() > 2) {
-                // Decrease the frequency of the fruit at position 'i' (left pointer)
-            	Character p = s.charAt(i);
-                map.put(p, map.get(p)- 1);
+                // Get the character at position `i` (left pointer) and decrease its frequency
+                Character p = s.charAt(i);
+                map.put(p, map.get(p) - 1);
                 
-                // If the count of a fruit becomes zero, remove it from the map
+                // If the frequency of a toy becomes zero, remove it from the map
                 if (map.get(p) == 0) {
                     map.remove(p);
                 }
-                // Move the left pointer to the right to reduce the number of fruit types in the window
+                // Move the left pointer to the right to shrink the window
                 i++;
             }
 
-            // At this point, we have at most 2 types of fruits in the window
-            // Update the maximum number of fruits we can collect by checking the size of the current valid window
+            // At this point, the window contains at most 2 types of toys
+            // Calculate the size of the current valid window and update `ans` if it's larger
             ans = Math.max(ans, j - i + 1);
 
             // Move the right pointer to expand the window
             j++;
         }
 
-        // Return the maximum number of fruits we can collect in any valid window
+        // Return the maximum number of toys (i.e., the length of the longest valid window)
         return ans;
     }
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println(totalToys("abaccab"));
-
-	}
+    public static void main(String[] args) {
+        // Example test case: find the maximum number of toys that can be picked from the string
+        System.out.println(totalToys("abaccab")); // Output: 4
+    }
 
 }
