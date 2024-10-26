@@ -39,6 +39,15 @@ public class Leetcode2461_MaximumSumofDistinctSubarraysWithLengthK {
 	                j++;
 	            } 
 	            // If the current element is a duplicate
+	            
+	            //VVVI
+	            /* Logic of Else block
+	             * else block tb aaega jb hmko koi duplicate milega
+	             * to jaise hi duplicate milega hm window shrink krnge (i++) and j ko increase ni krnge (jaise hm krte the no distict wale me)
+	             * i ko tbtk increase krnge jbtk duplicate element ht na jae
+	             * After adjusting i, the window will eventually reach a state where nums[j] can be added without causing a duplicate.
+	             * Unlike the non-duplicate case where j++ is automatic, j remains in place to retry adding nums[j] once the duplicate is removed.
+	             * */
 	            else {
 	                // We move the start of the window forward to remove elements until the duplicate is removed
 	                set.remove(nums[i]); // Remove the start element

@@ -52,12 +52,13 @@ public class Leetcode76_MinimumWindowSubstring {
 	                i++;
 	            }
 	            // Move the right pointer to expand the window
-	            j++;}
+	            j++;
 	        }
 
 	        // Step 5: Return the result (the minimum window substring), or an empty string if no valid window is found
 	        return res;
 	    }
+
 
 
 
