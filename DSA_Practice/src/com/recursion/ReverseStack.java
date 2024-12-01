@@ -3,7 +3,6 @@ package com.recursion;
 import java.util.Stack;
 
 public class ReverseStack {
-
     // Function to reverse the entire stack using recursion
     public static void reverse(Stack<Integer> s) {
         // Base case: If stack has only one element, it is already reversed
@@ -34,7 +33,6 @@ public class ReverseStack {
     public static void main(String[] args) {
         // Create a stack and push elements onto it
         Stack<Integer> s = new Stack<>();
-
         // Pushing elements onto the stack
         s.push(1);
         s.push(2);
@@ -42,14 +40,11 @@ public class ReverseStack {
         s.push(4);
         s.push(5);
         s.push(6);
-        s.push(7);
-        
+        s.push(7);        
         // Printing the original stack
         System.out.println("Original Stack: " + s);
-
         // Call the reverse function to reverse the stack
-        reverse(s);
-        
+        reverse(s);        
         // Print the reversed stack
         System.out.println("Reversed Stack: " + s);
     }

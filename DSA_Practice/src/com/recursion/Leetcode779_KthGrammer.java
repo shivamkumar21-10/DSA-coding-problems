@@ -1,6 +1,6 @@
 package com.recursion;
 
-public class KthGrammer_leetcode779 {
+public class Leetcode779_KthGrammer {
 	
 	public static int kthGrammar(int n, int k) {
 	    // Base case: If we are at the first row (n == 1) and first position (k == 1),
