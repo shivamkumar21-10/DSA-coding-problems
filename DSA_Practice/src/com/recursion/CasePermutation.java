@@ -2,43 +2,58 @@ package com.recursion;
 
 public class CasePermutation {
 
-    // Recursive function to generate all permutations of the string with different cases
+    /**
+     * Recursive function to generate all permutations of a string with different cases.
+     * Each character in the input string can either be included in lowercase or uppercase
+     * in the permutations.
+     *
+     * @param inp The remaining part of the input string to process.
+     * @param op  The current permutation being constructed.
+     */
     public static void solve(String inp, String op) {
-        // Base case: if the input string is empty, print the current output string
+        // Base case: If the input string is fully processed (empty),
+        // print the current output string and return.
         if (inp.length() == 0) {
-            System.out.println(op); // Print the current output when the input is fully processed
-            return; // End the current recursive call
+            System.out.println(op); // Output the current permutation.
+            return; // End this recursive branch.
         }
 
-        // Create two options for the current character:
-        // Option 1: Keep the character in lowercase (as it is)
-        // Option 2: Change the character to uppercase
-        String op1 = op; // Copy the current output to op1
-        String op2 = op; // Copy the current output to op2
+        /**
+         * Two options for each character in the input string:
+         * 1. Include the character in lowercase in the output string.
+         * 2. Include the character in uppercase in the output string.
+         */
 
-        // Append the character to op1 as is (lowercase)
-        op1 = op1 + inp.charAt(0);
+        // Option 1: Keep the character as it is (lowercase by default).
+        String op1 = op + inp.charAt(0);
 
-        // Append the uppercase version of the character to op2
-        op2 = op2 + Character.toUpperCase(inp.charAt(0));
+        // Option 2: Change the character to uppercase.
+        String op2 = op + Character.toUpperCase(inp.charAt(0));
 
-        // Remove the first character from the input for the next recursive call
-        inp = inp.substring(1);
+        // Remove the first character from the input string for the next recursive call.
+        String remainingInp = inp.substring(1);
 
-        // Recursive call with the updated input and first option (lowercase character)
-        solve(inp, op1);
+        // Recursive call for option 1: Append lowercase character.
+        solve(remainingInp, op1);
 
-        // Recursive call with the updated input and second option (uppercase character)
-        solve(inp, op2);
+        // Recursive call for option 2: Append uppercase character.
+        solve(remainingInp, op2);
     }
 
     public static void main(String[] args) {
-        // Driver code to test the solve function
-        String str = "ab"; // Define the input string
+        // Driver code to test the solve function.
 
-        String op = ""; // Initialize the output string as empty
+        // Define the input string.
+        String str = "ab";
 
-        // Start recursion with the input string and empty output string
+        // Initialize the output string as empty.
+        String op = "";
+
+        /**
+         * Start recursion with:
+         * - The input string (`str`) to process.
+         * - The empty output string (`op`) to construct the permutations.
+         */
         solve(str, op);
     }
 }
