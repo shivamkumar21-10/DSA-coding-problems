@@ -1,4 +1,4 @@
-package com.DP;
+package com.DP.Knapsack._01;
 
 import java.util.ArrayList;
 import java.util.List;

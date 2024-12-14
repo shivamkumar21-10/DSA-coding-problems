@@ -1,4 +1,4 @@
-package com.DP;
+package com.DP.Knapsack._01;
 
 public class Knapsack_01_recursive {
 	    
