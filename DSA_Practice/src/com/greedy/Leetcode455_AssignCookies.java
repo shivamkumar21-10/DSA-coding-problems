@@ -1,6 +1,6 @@
 package com.greedy;
 
-import java.util.*;
+import java.util.Arrays;
 
 public class Leetcode455_AssignCookies {
 	
