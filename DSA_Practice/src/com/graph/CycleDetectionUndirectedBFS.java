@@ -17,7 +17,7 @@ public class CycleDetectionUndirectedBFS {
         Queue<Integer> q = new LinkedList<>(); // Queue for BFS traversal
         q.add(source);
         isVisited.add(source);
-        parent[source] = -1; // Mark the source as having no parent
+        parent[source] = -1; // Mark the source as having no parent since it is the starting node
 
         // BFS traversal
         while (!q.isEmpty()) {
@@ -26,12 +26,15 @@ public class CycleDetectionUndirectedBFS {
             // Traverse all its neighbors
             for (int nbr : graph.getOrDefault(front, new ArrayList<>())) {
                 if (!isVisited.contains(nbr)) {
-                    // If the neighbor is not visited, mark it and set parent
+                    // If the neighbor is not visited, mark it as visited
                     isVisited.add(nbr);
                     q.add(nbr);
-                    parent[nbr] = front;
+                    parent[nbr] = front; // Set parent of `nbr` as `front`
                 } else {
-                    // If the neighbor is already visited and is not the parent, cycle exists
+                    // If the neighbor is already visited, check if it's not the parent
+                    // WHY? Because in an undirected graph, a node always has an edge back to its parent.
+                    // However, if we encounter a node that is visited and **not** our parent,
+                    // it means we've found a back edge, which indicates a cycle.
                     if (parent[front] != nbr) {
                         return true; // Cycle detected
                     }
@@ -53,7 +56,7 @@ public class CycleDetectionUndirectedBFS {
         Map<Integer, List<Integer>> graph = new HashMap<>();
         int n = 0; // Variable to store the maximum node index
 
-        // Construct the adjacency list
+        // Construct the adjacency list from edge list
         for (List<Integer> edge : edgeList) {
             int a = edge.get(0);
             int b = edge.get(1);
@@ -62,10 +65,10 @@ public class CycleDetectionUndirectedBFS {
             graph.computeIfAbsent(a, k -> new ArrayList<>()).add(b);
             graph.computeIfAbsent(b, k -> new ArrayList<>()).add(a);
         }
-        n++; // Adjust n to be the number of nodes
+        n++; // Adjust `n` to be the number of nodes
 
         Set<Integer> isVisited = new HashSet<>(); // Set to track visited nodes
-        int[] parent = new int[n]; // Parent array to maintain parent-child relationship
+        int[] parent = new int[n]; // Parent array to maintain parent-child relationships
         Arrays.fill(parent, -1); // Initialize parent array with -1
 
         boolean cycleExists = false;
@@ -82,21 +85,43 @@ public class CycleDetectionUndirectedBFS {
         System.out.println("Cycle Exists: " + cycleExists);
 
         /**
-         * -------------- DRY RUN --------------
-         * Given edge list:
-         *  0 -- 1 -- 2 -- 4
-         *  |         /
-         *  3 ------- 
+         * ============== 📌 DRY RUN 📌 ==============
          * 
-         * Step-by-step execution:
-         * 1. Start BFS from node 0.
-         * 2. Visit 1 and mark 0 as parent.
-         * 3. Visit 3 and mark 0 as parent.
-         * 4. Visit 2 from 1 and mark 1 as parent.
-         * 5. Visit 4 from 2 and mark 2 as parent.
-         * 6. Visit 3 from 4, but 3's parent is 0, so cycle is detected.
+         * 🔹 Given edge list:
+         *       0 -- 1 -- 2 -- 4
+         *       |         /
+         *       3 -------
          * 
-         * Output: Cycle Exists: true
+         * 🔹 Graph Representation:
+         *     0 → [1, 3]
+         *     1 → [0, 2]
+         *     2 → [1, 4]
+         *     3 → [0, 4]
+         *     4 → [2, 3]
+         *
+         * 🔹 Step-by-step execution:
+         * 
+         * 1. Start BFS from **node 0**.
+         *      - Mark `0` as visited and push to queue.
+         *      - Set `parent[0] = -1` (no parent).
+         * 2. Process **node 0**:
+         *      - Visit `1` → Mark visited, set `parent[1] = 0`, add to queue.
+         *      - Visit `3` → Mark visited, set `parent[3] = 0`, add to queue.
+         * 3. Process **node 1**:
+         *      - Visit `2` → Mark visited, set `parent[2] = 1`, add to queue.
+         *      - Visit `0` → Already visited but is its **parent**, so ignore.
+         * 4. Process **node 3**:
+         *      - Visit `4` → Mark visited, set `parent[4] = 3`, add to queue.
+         *      - Visit `0` → Already visited but is its **parent**, so ignore.
+         * 5. Process **node 2**:
+         *      - Visit `1` → Already visited but is its **parent**, so ignore.
+         *      - Visit `4` → Already visited, **but parent of `2` is `1`, not `4`**, so **cycle detected**!
+         * 
+         * 🔹 **Cycle Exists → Output: `true`**
+         * 
+         * ============== 📌 TIME & SPACE COMPLEXITY 📌 ==============
+         * - **Time Complexity**: **O(V + E)**  (BFS traversal visits each node & edge once)
+         * - **Space Complexity**: **O(V + E)**  (Adjacency list + queue + visited set + parent array)
          */
     }
 }
